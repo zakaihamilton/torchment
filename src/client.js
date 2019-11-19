@@ -1,14 +1,28 @@
-import App from './App';
-import BrowserRouter from 'react-router-dom/BrowserRouter';
 import React from 'react';
-import { hydrate } from 'react-dom';
+import ReactDOM from 'react-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import App from './App';
+import theme from './theme';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
 
-hydrate(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
-);
+function Main() {
+  React.useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>,
+    </ThemeProvider>
+  );
+}
+
+ReactDOM.hydrate(<Main />, document.querySelector('#root'));
 
 if (module.hot) {
   module.hot.accept();

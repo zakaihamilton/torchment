@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './react.svg';
 import './Home.css';
 import Button from '@material-ui/core/Button';
+import AppBar from './components/AppBar';
+import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
+import { Box } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div className="Home">
-        <div className="Home-header">
-          <img src={logo} className="Home-logo" alt="logo" />
-          <h2>Welcome to Razzle</h2>
-        </div>
-        <p className="Home-intro">
-          Torchment
-        </p>
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: "6px"
+  },
+}));
+
+export default function Home() {
+  const classes = useStyles();
+
+  return (
+    <div className="Home">
+      <AppBar />
+      <Box className={classes.root}>
         <Button variant="contained" color="primary">
           Hello World
         </Button>
-      </div>
-    );
-  }
+      </Box>
+    </div>
+  );
 }
-
-export default Home;

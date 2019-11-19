@@ -9,6 +9,8 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
+    "@material-ui/core": "^4.6.1",
+    "@material-ui/icons": "^4.5.1",
     "express": "4.17.1",
     "openode": "^2.0.14",
     "razzle": "3.0.0",

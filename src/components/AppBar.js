@@ -13,15 +13,10 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
     },
     title: {
         width: '100%',
-        userSelect: 'none',
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
+        userSelect: 'none'
     },
     search: {
         position: 'relative',
@@ -31,11 +26,8 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
         marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
+        marginLeft: theme.spacing(1),
+        width: 'auto'
     },
     searchIcon: {
         width: theme.spacing(7),
@@ -52,14 +44,11 @@ const useStyles = makeStyles(theme => ({
     inputInput: {
         padding: theme.spacing(1, 1, 1, 7),
         transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: 120,
-            '&:focus': {
-                width: 200,
-            },
-        },
-    },
+        width: 80,
+        '&:focus': {
+            width: 160
+        }
+    }
 }));
 
 export default function MainAppBar({ toggleMenu, title }) {

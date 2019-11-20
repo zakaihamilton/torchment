@@ -34,7 +34,7 @@ export default function Menu({ isMenuVisible, toggleMenu, pages, setPage }) {
             >
                 <List>
                     {pages.map(page => {
-                        return (<ListItem button onClick={() => setPage(page.id)}>
+                        return (<ListItem key={page.id} button onClick={() => setPage(page.id)}>
                             <ListItemIcon>{page.icon}</ListItemIcon>
                             <ListItemText primary={page.label}></ListItemText>
                         </ListItem>);

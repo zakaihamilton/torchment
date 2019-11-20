@@ -69,10 +69,6 @@ export default function ShareCard() {
     setUrl(event.target.value);
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   const canShare = () => {
     return text && title && navigator.share;
   }

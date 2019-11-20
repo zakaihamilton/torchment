@@ -55,6 +55,7 @@ export default function ShareCard() {
   const [expanded, setExpanded] = useState(false);
   const [title, setTitle] = useState('This is an example');
   const [text, setText] = useState('This is an example of the text that will be shared');
+  const [url, setUrl] = useState('');
 
   const handleTitle = event => {
     setTitle(event.target.value);
@@ -62,6 +63,10 @@ export default function ShareCard() {
 
   const handleText = event => {
     setText(event.target.value);
+  };
+
+  const handleUrl = event => {
+    setUrl(event.target.value);
   };
 
   const handleExpandClick = () => {
@@ -77,7 +82,8 @@ export default function ShareCard() {
     if (navigator.share) {
       navigator.share({
         title,
-        text
+        text,
+        url
       });
     }
   }
@@ -103,6 +109,16 @@ export default function ShareCard() {
               margin="normal"
               value={title}
               onChange={handleTitle}
+            />
+          </div>
+          <div>
+            <TextField
+              id="standard-basic"
+              className={classes.textField}
+              label="Url"
+              margin="normal"
+              value={url}
+              onChange={handleUrl}
             />
           </div>
           <div>

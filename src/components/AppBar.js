@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
         pointerEvents: 'none',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     inputRoot: {
         color: 'inherit',
@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MainAppBar() {
+export default function MainAppBar({ toggleMenu, title }) {
     const classes = useStyles();
 
     return (
@@ -74,12 +74,13 @@ export default function MainAppBar() {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={toggleMenu}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Torchment
-          </Typography>
+                        {title}
+                    </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

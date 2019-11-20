@@ -118,7 +118,7 @@ export default function ShareCard() {
               onChange={handleText}
             />
           </div>
-          <Button variant="contained" color="primary" disabled={canShare} className={classes.button} onClick={showShareDialog}>
+          <Button variant="contained" color="primary" {...(!canShare()) && { disabled: true }} className={classes.button} onClick={showShareDialog}>
             Share
           </Button>
         </form>

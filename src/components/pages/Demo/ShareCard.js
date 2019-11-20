@@ -124,11 +124,11 @@ export default function ShareCard() {
         </form>
         <Typography variant="body2" color="textSecondary" component="p">
           This feature enables using the native share dialog for mobile devices. Note that this feature only works on mobile devices. see
-          <Link href="https://developers.google.com/web/updates/2019/05/web-share-files" className={classes.link}>
+          <Link target="_blank" rel="noopener" href="https://developers.google.com/web/updates/2019/05/web-share-files" className={classes.link}>
             here
           </Link>
           and
-          <Link href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share" className={classes.link}>
+          <Link target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share" className={classes.link}>
             here
           </Link>
           for more API information.

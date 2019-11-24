@@ -1,5 +1,5 @@
 {
-  "name": "my-razzle-app",
+  "name": "torchment",
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
@@ -16,6 +16,12 @@
     "razzle": "3.0.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "react-router-dom": "5.1.2"
+    "react-router-dom": "5.1.2",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zakaihamilton/torchment.git"
   }
 }

@@ -7,7 +7,8 @@ const useStyles = makeStyles({
     root: {
         position: "absolute",
         width: "100%",
-        bottom: "0px"
+        bottom: "0px",
+        backgroundColor: "transparent"
     },
 });
 
@@ -27,7 +28,7 @@ export default function NavBar({ pages, setPage, currentPage }) {
                 if (!page.location || !page.location.includes("NavBar")) {
                     return null;
                 }
-                return (<BottomNavigationAction label={page.label} value={page.id} icon={page.icon} />);
+                return (<BottomNavigationAction key={page.id} label={page.label} value={page.id} icon={page.icon} />);
             }).filter(Boolean)}
         </BottomNavigation>
     );

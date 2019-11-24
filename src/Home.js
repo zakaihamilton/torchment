@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import './Home.css';
-import Button from '@material-ui/core/Button';
 import { Box } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Menu from './components/Menu';
 import AppBar from './components/AppBar';
-import Demo from './components/pages/Demo';
-import DemoIcon from '@material-ui/icons/EmojiObjects';
-import Dashboard from './components/pages/Dashboard';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import NavBar from './components/NavBar';
+import pages from './components/pages';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,20 +17,7 @@ export default function Home() {
   const classes = useStyles();
   const [isMenuVisible, showMenu] = useState(false);
   const [pageIndex, setPageIndex] = useState(0);
-  const pages = [
-    {
-      id: "dashboard",
-      label: "Dashboard",
-      component: <Dashboard />,
-      icon: <DashboardIcon />
-    },
-    {
-      id: "demo",
-      label: "Demo",
-      component: <Demo />,
-      icon: <DemoIcon />
-    }
-  ];
+
   const setPage = (id) => {
     setPageIndex(pages.findIndex(page => page.id === id));
   }
@@ -46,11 +30,12 @@ export default function Home() {
 
   return (
     <div className="Home">
-      <AppBar title={currentPage.label} toggleMenu={toggleMenu} />
+      <AppBar title={currentPage.label} toggleMenu={toggleMenu} pages={pages} setPage={setPage} />
       <Menu isMenuVisible={isMenuVisible} toggleMenu={toggleMenu} pages={pages} setPage={setPage} />
       <Box className={classes.root}>
         {currentPage.component}
       </Box>
+      <NavBar pages={pages} setPage={setPage} currentPage={currentPage} />
     </div>
   );
 }

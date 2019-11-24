@@ -34,11 +34,14 @@ export default function Menu({ isMenuVisible, toggleMenu, pages, setPage }) {
             >
                 <List>
                     {pages.map(page => {
+                        if (!page.location || !page.location.includes("Menu")) {
+                            return null;
+                        }
                         return (<ListItem key={page.id} button onClick={() => setPage(page.id)}>
                             <ListItemIcon>{page.icon}</ListItemIcon>
                             <ListItemText primary={page.label}></ListItemText>
                         </ListItem>);
-                    })}
+                    }).filter(Boolean)}
                 </List>
             </div>
         </Drawer>

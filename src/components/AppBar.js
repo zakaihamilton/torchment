@@ -133,7 +133,7 @@ export default function MainAppBar({ toggleMenu, title, pages, setPage }) {
                 if (!page.location || !page.location.includes("AppBar")) {
                     return null;
                 }
-                return (<MenuItem key={page.id} onClick={() => handleMobileMenuClose() && setPage(page.id)}>
+                return (<MenuItem key={page.id} onClick={() => { handleMobileMenuClose(); setPage(page.id); }}>
                     <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
                             {page.icon}

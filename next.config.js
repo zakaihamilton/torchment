@@ -4,7 +4,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const nextConfig = {
     dontAutoRegisterSw: true,
-    generateInDevMode: true,
     workboxOpts: {
         importScripts: ['./sw.js']
     },

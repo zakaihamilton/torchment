@@ -3,7 +3,6 @@ import Menu from './components/Menu';
 import AppBar from './components/AppBar';
 import NavBar from './components/NavBar';
 import pages from './components/pages';
-import ServiceWorker from './components/ServiceWorker';
 
 export default function Home() {
   const [isMenuVisible, showMenu] = useState(false);
@@ -21,7 +20,6 @@ export default function Home() {
 
   return (
     <>
-      <ServiceWorker />
       <AppBar title={currentPage.label} toggleMenu={toggleMenu} pages={pages} setPage={setPage} />
       <Menu isMenuVisible={isMenuVisible} toggleMenu={toggleMenu} pages={pages} setPage={setPage} />
       {currentPage.component}

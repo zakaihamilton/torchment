@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { register, unregister } from 'next-offline/runtime';
+import serviceWorker from '../mgr/serviceWorker/serviceWorker';
+import '../mgr/push/push';
 
 export default function ServiceWorker() {
     useEffect(() => {
-        register();
+        serviceWorker.register();
         return () => {
-            unregister();
+            serviceWorker.unregister();
         };
     }, []);
     return null;

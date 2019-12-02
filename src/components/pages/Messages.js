@@ -4,6 +4,8 @@ import ListItem from '@material-ui/core/ListItem';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import MessageCard from './Messages/MessageCard';
+import Permission from './Messages/Permission';
+import push from '../../mgr/push/push';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -37,14 +39,17 @@ export default function Messages() {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <AutoSizer>
-                {({ height, width }) => {
-                    return (<FixedSizeList height={height} width={width} itemSize={250} itemCount={50}>
-                        {renderRow}
-                    </FixedSizeList>);
-                }}
-            </AutoSizer>
-        </div>
+        <>
+            {push.shouldShowPermissionRequest() && <Permission />}
+            <div className={classes.root}>
+                <AutoSizer>
+                    {({ height, width }) => {
+                        return (<FixedSizeList height={height} width={width} itemSize={250} itemCount={50}>
+                            {renderRow}
+                        </FixedSizeList>);
+                    }}
+                </AutoSizer>
+            </div>
+        </>
     );
 }

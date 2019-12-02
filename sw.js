@@ -1,1 +1,1 @@
-console.log("service worker");
+import './src/mgr/push/push';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import { FixedSizeList } from 'react-window';
@@ -6,6 +6,8 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import MessageCard from './Messages/MessageCard';
 import Permission from './Messages/Permission';
 import push from '../../mgr/push/push';
+import messages from '../../mgr/push/messages';
+import serviceWorker from '../../mgr/serviceWorker/serviceWorker';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,19 +26,37 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function renderRow(props) {
-    const classes = useStyles();
-    const { index, style } = props;
-
-    return (
-        <ListItem className={classes.item} key={index} style={style}>
-            <MessageCard index={index} />
-        </ListItem>
-    );
-}
+serviceWorker.showLocalNotification.subscribe({
+    after: (result, message) => {
+        messages.push(message);
+    }
+});
 
 export default function Messages() {
     const classes = useStyles();
+    const items = messages.list();
+    const [counter, setCounter] = useState(0);
+
+    useEffect(() => {
+        const callbacks = {
+            after: () => setCounter(counter => counter + 1)
+        };
+        messages.update.subscribe(callbacks);
+        return () => {
+            messages.update.unsubscribe(callbacks);
+        }
+    }, []);
+
+    function renderRow({ index, style }) {
+        const classes = useStyles();
+        const message = items[index];
+
+        return (
+            <ListItem className={classes.item} key={index} style={style}>
+                <MessageCard index={index} {...message} />
+            </ListItem>
+        );
+    }
 
     return (
         <>
@@ -44,7 +64,7 @@ export default function Messages() {
             <div className={classes.root}>
                 <AutoSizer>
                     {({ height, width }) => {
-                        return (<FixedSizeList height={height} width={width} itemSize={250} itemCount={50}>
+                        return (<FixedSizeList height={height} width={width} itemSize={250} itemCount={items.length}>
                             {renderRow}
                         </FixedSizeList>);
                     }}

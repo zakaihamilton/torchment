@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,7 +11,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles(theme => ({
@@ -79,11 +78,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function MainAppBar({ toggleMenu, title, pages, setPage }) {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const [counter, setCounter] = useState(0);
 
     function handleProfileMenuOpen(event) {
         setAnchorEl(event.currentTarget);
@@ -101,6 +101,22 @@ export default function MainAppBar({ toggleMenu, title, pages, setPage }) {
     function handleMobileMenuOpen(event) {
         setMobileMoreAnchorEl(event.currentTarget);
     }
+
+    useEffect(() => {
+        const hook = () => setCounter(counter => counter + 1);
+        const hooks = [];
+        pages.map(page => {
+            if (!page.location || !page.location.includes("AppBar")) {
+                return null;
+            }
+            if (page.hook) {
+                hooks.push(page.hook(hook));
+            }
+        });
+        return () => {
+            hooks.map(hook => hook());
+        };
+    }, []);
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -193,7 +209,7 @@ export default function MainAppBar({ toggleMenu, title, pages, setPage }) {
                                 return null;
                             }
                             return (<IconButton key={page.id} color="inherit" onClick={() => setPage(page.id)}>
-                                <Badge badgeContent={4} color="secondary">
+                                <Badge badgeContent={page.badgeContent()} color="secondary">
                                     {page.icon}
                                 </Badge>
                             </IconButton>

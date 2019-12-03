@@ -10,6 +10,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import serviceWorker from '../../../mgr/serviceWorker/serviceWorker';
+import push from '../../../mgr/push/push';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -45,18 +46,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function PushCard() {
+export default function NotificationCard() {
   const classes = useStyles();
-  const [message, setMessage] = useState('This is an example of a local notification');
+  const [body, setBody] = useState('This is an example of a local notification');
   const [delay, setDelay] = useState('1000');
   const [title, setTitle] = useState('Local notification');
+  const [counter, setCounter] = useState(0);
 
-  const handleMessage = event => {
-    setMessage(event.target.value);
+  const handleBody = event => {
+    setBody(event.target.value);
   };
 
   const handleDelay = event => {
-    setText(event.target.value);
+    setDelay(event.target.value);
   };
 
   const handleTitle = event => {
@@ -64,8 +66,16 @@ export default function PushCard() {
   };
 
   const showNotification = () => {
-    serviceWorker.showLocalNotification({ title, message });
+    setTimeout(() => {
+      serviceWorker.showLocalNotification({ title, body });
+    }, delay);
   };
+
+  const enableNotifications = () => {
+    push.askForPermission().then(() => {
+      setCounter(counter + 1);
+    });
+  }
 
   return (
     <Card className={classes.card}>
@@ -92,7 +102,7 @@ export default function PushCard() {
           <div>
             <TextField
               className={classes.textField}
-              label="Delay"
+              label="Delay (msec)"
               margin="normal"
               value={delay}
               onChange={handleDelay}
@@ -103,16 +113,19 @@ export default function PushCard() {
               multiline
               rows="4"
               className={classes.textField}
-              label="Message"
+              label="Body"
               margin="normal"
               variant="outlined"
-              value={message}
-              onChange={handleMessage}
+              value={body}
+              onChange={handleBody}
             />
           </div>
           <Button variant="contained" color="primary" id="showNotification" className={classes.button} onClick={showNotification}>
             Show Local Notification
           </Button>
+          {push.shouldShowPermissionRequest() && <Button variant="contained" color="primary" id="showNotification" className={classes.button} onClick={enableNotifications}>
+            Enable Notifications
+          </Button>}
         </form>
         <Typography variant="body2" color="textSecondary" component="p">
           This feature sends a local notification to the device

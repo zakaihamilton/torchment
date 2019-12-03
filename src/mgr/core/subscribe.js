@@ -21,7 +21,10 @@ export function makeSubscribable(object) {
             proxy.notify = (type, ...args) => {
                 for (let handler of proxy._handlers) {
                     if (type in handler) {
-                        handler[type](...args);
+                        const method = handler[type];
+                        if (typeof method === "function") {
+                            method(...args);
+                        }
                     }
                 }
             }

@@ -14,6 +14,8 @@ import MyAdsIcon from '@material-ui/icons/History';
 import DemoIcon from '@material-ui/icons/EmojiObjects';
 import MessagesIcon from '@material-ui/icons/Mail';
 
+import messages from '../mgr/push/messages';
+
 export default [
     {
         id: "dashboard",
@@ -55,6 +57,16 @@ export default [
         label: "Messages",
         component: <Messages />,
         icon: <MessagesIcon />,
-        location: ["AppBar"]
+        location: ["AppBar"],
+        badgeContent: messages.count,
+        hook: hook => {
+            const callbacks = {
+                after: hook
+            };
+            messages.update.subscribe(callbacks);
+            return () => {
+                messages.update.unsubscribe(callbacks);
+            };
+        }
     }
 ];

@@ -1,6 +1,6 @@
 import React from 'react';
 import ShareCard from './Demo/ShareCard';
-import PushCard from './Demo/PushCard';
+import NotificationCard from './Demo/NotificationCard';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -14,7 +14,7 @@ export default function Demo() {
     return (
         <div className={classes.list}>
             <ShareCard />
-            <PushCard />
+            <NotificationCard />
         </div>
     );
 }

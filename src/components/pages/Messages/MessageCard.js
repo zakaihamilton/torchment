@@ -11,6 +11,7 @@ import { blue } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CloseIcon from '@material-ui/icons/Cancel';
+import messages from '../../../mgr/push/messages';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -31,8 +32,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MessageCard({ index }) {
+export default function MessageCard({ id, index, title, date, body }) {
     const classes = useStyles();
+
+    const removeMessage = () => {
+        messages.remove(id);
+    };
 
     return (
         <Card className={classes.card}>
@@ -44,17 +49,17 @@ export default function MessageCard({ index }) {
                 }
                 action={
                     <>
-                        <IconButton aria-label="close">
+                        <IconButton aria-label="close" onClick={removeMessage}>
                             <CloseIcon />
                         </IconButton>
                     </>
                 }
-                title="The title of the message"
-                subheader="The date can be here"
+                title={title}
+                subheader={date}
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                    This is an example of a message
+                    {body}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

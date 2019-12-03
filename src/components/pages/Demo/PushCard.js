@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+import serviceWorker from '../../../mgr/serviceWorker/serviceWorker';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -52,24 +47,24 @@ const useStyles = makeStyles(theme => ({
 
 export default function PushCard() {
   const classes = useStyles();
-  const [payload, setPayload] = useState('This is an example of a push notification');
+  const [message, setMessage] = useState('This is an example of a local notification');
   const [delay, setDelay] = useState('1000');
-  const [ttl, setTtl] = useState('0');
+  const [title, setTitle] = useState('Local notification');
 
-  const handlePayload = event => {
-    setTitle(event.target.value);
+  const handleMessage = event => {
+    setMessage(event.target.value);
   };
 
   const handleDelay = event => {
     setText(event.target.value);
   };
 
-  const handleTtl = event => {
-    setUrl(event.target.value);
+  const handleTitle = event => {
+    setTitle(event.target.value);
   };
 
-  const pushNotification = () => {
-    window.pushNotification(payload, delay, ttl);
+  const showNotification = () => {
+    serviceWorker.showLocalNotification({ title, message });
   };
 
   return (
@@ -80,18 +75,18 @@ export default function PushCard() {
             <ShareIcon />
           </Avatar>
         }
-        title="Push Notifications"
-        subheader="Push API"
+        title="Local Notifications"
+        subheader="Service Worker API"
       />
       <CardContent>
         <form className={classes.form} noValidate autoComplete="off">
           <div>
             <TextField
               className={classes.textField}
-              label="Ttl"
+              label="Title"
               margin="normal"
-              value={ttl}
-              onChange={handleTtl}
+              value={title}
+              onChange={handleTitle}
             />
           </div>
           <div>
@@ -108,19 +103,19 @@ export default function PushCard() {
               multiline
               rows="4"
               className={classes.textField}
-              label="Payload"
+              label="Message"
               margin="normal"
               variant="outlined"
-              value={payload}
-              onChange={handlePayload}
+              value={message}
+              onChange={handleMessage}
             />
           </div>
-          <Button variant="contained" color="primary" id="pushNotification" className={classes.button} onClick={pushNotification}>
-            Push Notification
+          <Button variant="contained" color="primary" id="showNotification" className={classes.button} onClick={showNotification}>
+            Show Local Notification
           </Button>
         </form>
         <Typography variant="body2" color="textSecondary" component="p">
-          This feature sends a push notification to the device
+          This feature sends a local notification to the device
         </Typography>
       </CardContent>
     </Card>

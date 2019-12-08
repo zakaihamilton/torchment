@@ -13,17 +13,8 @@ import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345,
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
+    width: 345,
+    height: 515
   },
   avatar: {
     backgroundColor: red[500]
@@ -47,7 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function ShareCard() {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
   const [title, setTitle] = useState('This is an example');
   const [text, setText] = useState('This is an example of the text that will be shared');
   const [url, setUrl] = useState('');

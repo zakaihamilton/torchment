@@ -10,7 +10,9 @@
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.35",
     "copy-webpack-plugin": "^5.0.5",
+    "isomorphic-fetch": "^2.2.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "9.1.4",
     "next-offline": "^4.0.6",
@@ -18,8 +20,10 @@
     "openode": "^2.0.14",
     "react": "16.12.0",
     "react-dom": "16.12.0",
+    "react-spring": "^8.0.27",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "web-push": "^3.4.1"
-  }
+  },
+  "profile": "default"
 }

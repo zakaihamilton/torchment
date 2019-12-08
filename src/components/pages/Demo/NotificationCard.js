@@ -14,17 +14,8 @@ import push from '../../../mgr/push/push';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345,
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
+    width: 345,
+    height: 515
   },
   avatar: {
     backgroundColor: red[500]

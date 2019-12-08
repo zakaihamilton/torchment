@@ -1,4 +1,4 @@
-export function makeSubscribable(object) {
+function makeSubscribable(object) {
     if (typeof object === "object") {
         for (let key in object) {
             const method = object[key];
@@ -33,3 +33,7 @@ export function makeSubscribable(object) {
     }
     return object;
 }
+
+module.exports = {
+    makeSubscribable
+};

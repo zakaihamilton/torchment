@@ -2,6 +2,7 @@ const { createServer } = require("http");
 const { join } = require("path");
 const { parse } = require("url");
 const next = require("next");
+const { handleModule } = require("./src/mgr/core/module");
 
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = app.getRequestHandler();
@@ -16,7 +17,7 @@ app.prepare().then(() => {
             const filePath = join(__dirname, ".next", pathname);
 
             app.serveStatic(req, res, filePath);
-        } else {
+        } else if (!handleModule(pathname, req, res)) {
             handle(req, res, parsedUrl);
         }
     }).listen(port, () => {

@@ -82,7 +82,7 @@ export default function TreeWidget({ items }) {
                     elements.push((<StyledTreeItem nodeId={key} label={key}>{parse(value)}</StyledTreeItem>));
                 }
                 else {
-                    const label = (<><b>{key}</b> {value}</>)
+                    const label = (<div><b>{key}</b> {value}</div>);
                     elements.push((<StyledTreeItem nodeId={key} label={label}></StyledTreeItem>));
                 }
             }

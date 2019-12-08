@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import { fade, makeStyles, withStyles } from '@material-ui/core/styles';
+import { fade, withStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import Collapse from '@material-ui/core/Collapse';
@@ -79,11 +79,11 @@ export default function TreeWidget({ items }) {
             for (const key of keys) {
                 const value = items[key];
                 if (typeof value === "object") {
-                    elements.push((<StyledTreeItem nodeId={key} label={key}>{parse(value)}</StyledTreeItem>));
+                    elements.push((<StyledTreeItem key={key} nodeId={key} label={key}>{parse(value)}</StyledTreeItem>));
                 }
                 else {
                     const label = (<div><b>{key}</b> {value}</div>);
-                    elements.push((<StyledTreeItem nodeId={key} label={label}></StyledTreeItem>));
+                    elements.push((<StyledTreeItem key={key} nodeId={key} label={label}></StyledTreeItem>));
                 }
             }
         }

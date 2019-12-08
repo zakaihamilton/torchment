@@ -5,8 +5,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import ShareIcon from '@material-ui/icons/Share';
+import { green } from '@material-ui/core/colors';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import serviceWorker from '../../../mgr/serviceWorker/serviceWorker';
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     height: 515
   },
   avatar: {
-    backgroundColor: red[500]
+    backgroundColor: green[500]
   },
   form: {
     display: 'flex',
@@ -73,7 +73,7 @@ export default function NotificationCard() {
       <CardHeader
         avatar={
           <Avatar className={classes.avatar}>
-            <ShareIcon />
+            <NotificationsIcon />
           </Avatar>
         }
         title="Local Notifications"

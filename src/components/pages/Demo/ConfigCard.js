@@ -4,8 +4,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import { red } from '@material-ui/core/colors';
-import ShareIcon from '@material-ui/icons/Share';
+import { blue } from '@material-ui/core/colors';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { useAPI } from '../../../mgr/core/hooks';
 import config from '../../../mgr/core/config';
 import Tree from './ConfigCard/Tree';
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
         overflowY: "auto"
     },
     avatar: {
-        backgroundColor: red[500]
+        backgroundColor: blue[500]
     },
     form: {
         display: 'flex',
@@ -45,7 +45,7 @@ export default function ConfigCard() {
             <CardHeader
                 avatar={
                     <Avatar className={classes.avatar}>
-                        <ShareIcon />
+                        <SettingsIcon />
                     </Avatar>
                 }
                 title="Config"

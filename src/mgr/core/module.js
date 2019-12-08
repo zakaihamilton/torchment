@@ -96,7 +96,7 @@ function handleModule(pathname, req, res) {
                 const args = JSON.parse(body).map(arg => exportValue(arg));
                 let result = {};
                 try {
-                    const returnVal = await methods[method](...args);
+                    const returnVal = await methods[method].apply(req, args);
                     result = importValue(returnVal);
                 }
                 catch (err) {

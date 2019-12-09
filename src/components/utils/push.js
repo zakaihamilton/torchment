@@ -1,7 +1,7 @@
 import { makeSubscribable } from '../../mgr/core/subscribe';
 
 function shouldShowPermissionRequest() {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && typeof Notification !== "undefined") {
         if (Notification.permission === "default") {
             return true;
         }
@@ -10,7 +10,7 @@ function shouldShowPermissionRequest() {
 }
 
 async function askForPermission() {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && typeof Notification !== "undefined") {
         let permission = Notification.permission;
         if (permission === "default") {
             permission = await window.Notification.requestPermission();

@@ -82,8 +82,8 @@ export default function NotificationCard() {
             <NotificationsIcon />
           </Avatar>
         }
-        title="Local Notifications"
-        subheader="Service Worker API"
+        title="Notifications"
+        subheader="Service Worker and Push API"
       />
       <CardContent>
         <form className={classes.form} noValidate autoComplete="off">

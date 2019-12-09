@@ -10,7 +10,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import serviceWorker from '../../utils/serviceWorker';
-import push from '../../utils/push';
+import notification from '../../utils/notification';
+import push from '../../../mgr/push/push';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -40,9 +41,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function NotificationCard() {
   const classes = useStyles();
-  const [body, setBody] = useState('This is an example of a local notification');
+  const [body, setBody] = useState('This is an example of a notification');
   const [delay, setDelay] = useState('1000');
-  const [title, setTitle] = useState('Local notification');
+  const [title, setTitle] = useState('Notification');
   const [counter, setCounter] = useState(0);
 
   const handleBody = event => {
@@ -57,14 +58,18 @@ export default function NotificationCard() {
     setTitle(event.target.value);
   };
 
-  const showNotification = () => {
+  const sendLocalNotification = () => {
     setTimeout(() => {
       serviceWorker.showLocalNotification({ title, body });
     }, delay);
   };
 
+  const sendPushNotification = () => {
+    push.sendNotification({ title, body, delay });
+  };
+
   const enableNotifications = () => {
-    push.askForPermission().then(() => {
+    notification.askForPermission().then(() => {
       setCounter(counter + 1);
     });
   }
@@ -112,15 +117,18 @@ export default function NotificationCard() {
               onChange={handleBody}
             />
           </div>
-          <Button variant="contained" color="primary" id="showNotification" className={classes.button} onClick={showNotification}>
-            Show Local Notification
+          <Button variant="contained" color="primary" className={classes.button} onClick={sendLocalNotification}>
+            Send Local Notification
           </Button>
-          {push.shouldShowPermissionRequest() && <Button variant="contained" color="primary" id="showNotification" className={classes.button} onClick={enableNotifications}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={sendPushNotification}>
+            Send Push Notification
+          </Button>
+          {notification.shouldShowPermissionRequest() && <Button variant="contained" color="primary" className={classes.button} onClick={enableNotifications}>
             Enable Notifications
           </Button>}
         </form>
         <Typography variant="body2" color="textSecondary" component="p">
-          This feature sends a local notification to the device
+          This feature sends a notification to the device
         </Typography>
       </CardContent>
     </Card>

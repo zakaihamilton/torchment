@@ -2,7 +2,7 @@ const { makeSubscribable } = require('./subscribe');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-let _modules = [];
+let _modules = {};
 
 function importValue(value) {
     const type = typeof value;
@@ -33,14 +33,15 @@ function exportValue({ type, value }) {
     }
 }
 
-function makeModule(mapping) {
+function makeModule(name, mapping) {
     mapping = makeSubscribable(mapping);
     if (typeof window !== "undefined") {
-        for (const path in mapping) {
-            if (typeof mapping[path] !== "function") {
+        for (const key in mapping) {
+            if (typeof mapping[key] !== "function") {
                 continue;
             }
-            mapping[path] = async (...args) => {
+            const path = name + "/" + key;
+            mapping[key] = async (...args) => {
                 let body = args.map(arg => importValue(arg));
                 body = JSON.stringify(body);
                 const response = await fetch("/" + path, {
@@ -62,7 +63,7 @@ function makeModule(mapping) {
         }
     }
     else {
-        _modules.unshift(mapping);
+        _modules[name] = mapping;
     }
     return mapping;
 }
@@ -79,16 +80,17 @@ function handleRequest(req) {
             });
         }
         else {
-            resolve();
+            resolve("[]");
         }
     });
 }
 
 function handleModule(pathname, req, res) {
-    const modules = _modules || [];
-    for (const methods of modules) {
+    const modules = _modules || {};
+    for (const name in modules) {
+        const methods = modules[name];
         for (const method in methods) {
-            if (pathname !== "/" + method) {
+            if (pathname !== "/" + name + "/" + method) {
                 continue;
             }
             handleRequest(req).then(async body => {

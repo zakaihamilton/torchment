@@ -24,6 +24,6 @@ async function getConfig() {
     return json;
 }
 
-module.exports = makeModule({
+module.exports = makeModule("config", {
     getConfig
 });

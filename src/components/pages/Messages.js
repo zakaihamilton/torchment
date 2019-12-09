@@ -5,7 +5,7 @@ import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import MessageCard from './Messages/MessageCard';
 import Permission from './Messages/Permission';
-import push from '../utils/push';
+import push from '../utils/notification';
 import messages from '../utils/messages';
 import serviceWorker from '../utils/serviceWorker';
 

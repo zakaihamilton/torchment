@@ -15,7 +15,8 @@ import push from '../../utils/push';
 const useStyles = makeStyles(theme => ({
   card: {
     width: 345,
-    height: 515
+    height: 515,
+    margin: "6px",
   },
   avatar: {
     backgroundColor: green[500]

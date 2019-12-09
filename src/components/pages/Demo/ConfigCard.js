@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     card: {
         width: 345,
         height: 515,
+        margin:"6px",
         overflowY: "auto"
     },
     avatar: {

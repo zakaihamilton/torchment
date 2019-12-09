@@ -14,7 +14,7 @@ import MyAdsIcon from '@material-ui/icons/History';
 import DemoIcon from '@material-ui/icons/EmojiObjects';
 import MessagesIcon from '@material-ui/icons/Mail';
 
-import messages from '../mgr/push/messages';
+import messages from './utils/messages';
 
 export default [
     {

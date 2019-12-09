@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import { blue } from '@material-ui/core/colors';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { useAPI } from '../../../mgr/core/hooks';
+import { useAPI } from '../../utils/hooks';
 import config from '../../../mgr/core/config';
 import Tree from './ConfigCard/Tree';
 

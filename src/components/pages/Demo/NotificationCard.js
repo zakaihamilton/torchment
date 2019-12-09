@@ -9,8 +9,8 @@ import { green } from '@material-ui/core/colors';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import serviceWorker from '../../../mgr/serviceWorker/serviceWorker';
-import push from '../../../mgr/push/push';
+import serviceWorker from '../../utils/serviceWorker';
+import push from '../../utils/push';
 
 const useStyles = makeStyles(theme => ({
   card: {

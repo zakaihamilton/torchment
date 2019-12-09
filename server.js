@@ -2,7 +2,7 @@ const { createServer } = require("http");
 const { join } = require("path");
 const { parse } = require("url");
 const next = require("next");
-const { handleModule } = require("./src/mgr/core/module");
+const { handleModule } = require("./src/mgr/server");
 
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = app.getRequestHandler();

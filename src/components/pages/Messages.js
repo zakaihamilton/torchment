@@ -5,9 +5,9 @@ import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import MessageCard from './Messages/MessageCard';
 import Permission from './Messages/Permission';
-import push from '../../mgr/push/push';
-import messages from '../../mgr/push/messages';
-import serviceWorker from '../../mgr/serviceWorker/serviceWorker';
+import push from '../utils/push';
+import messages from '../utils/messages';
+import serviceWorker from '../utils/serviceWorker';
 
 const useStyles = makeStyles(theme => ({
     root: {

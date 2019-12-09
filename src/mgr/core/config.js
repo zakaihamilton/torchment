@@ -1,7 +1,7 @@
-import { makeModule } from '../core/module';
-import fs from 'fs';
-import _ from 'lodash';
-import http from 'http';
+const { makeModule } = require('./module');
+const fs = require("fs");
+const _ = require("lodash");
+const http = require("http");
 
 async function getConfig() {
     const file = await fs.promises.readFile('./package.json');
@@ -24,6 +24,6 @@ async function getConfig() {
     return json;
 }
 
-export default makeModule({
+module.exports = makeModule({
     getConfig
 });

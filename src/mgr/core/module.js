@@ -1,6 +1,8 @@
-const { makeSubscribable } = require('../core/subscribe');
+const { makeSubscribable } = require('./subscribe');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
+
+let _modules = [];
 
 function importValue(value) {
     const type = typeof value;
@@ -60,10 +62,7 @@ function makeModule(mapping) {
         }
     }
     else {
-        if (!global.modules) {
-            global.modules = [];
-        }
-        global.modules.push(mapping);
+        _modules.unshift(mapping);
     }
     return mapping;
 }
@@ -86,7 +85,7 @@ function handleRequest(req) {
 }
 
 function handleModule(pathname, req, res) {
-    const modules = global.modules || [];
+    const modules = _modules || [];
     for (const methods of modules) {
         for (const method in methods) {
             if (pathname !== "/" + method) {

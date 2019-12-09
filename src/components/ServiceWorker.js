@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import serviceWorker from '../mgr/serviceWorker/serviceWorker';
-import '../mgr/push/push';
+import serviceWorker from './utils/serviceWorker';
+import './utils/push';
 
 export default function ServiceWorker() {
     useEffect(() => {

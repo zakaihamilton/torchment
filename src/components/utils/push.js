@@ -1,4 +1,4 @@
-import { makeSubscribable } from '../core/subscribe';
+import { makeSubscribable } from '../../mgr/core/subscribe';
 
 function shouldShowPermissionRequest() {
     if (typeof window !== "undefined") {

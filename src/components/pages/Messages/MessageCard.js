@@ -11,7 +11,7 @@ import { blue } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import CloseIcon from '@material-ui/icons/Cancel';
-import messages from '../../../mgr/push/messages';
+import messages from '../../utils/messages';
 
 const useStyles = makeStyles(theme => ({
     card: {

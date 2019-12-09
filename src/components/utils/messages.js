@@ -1,4 +1,4 @@
-import { makeSubscribable } from '../core/subscribe';
+import { makeSubscribable } from '../../mgr/core/subscribe';
 
 let messages = [];
 let exports = null;

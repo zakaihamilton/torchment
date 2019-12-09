@@ -59,7 +59,6 @@ export default function ShareCard() {
   }
 
   const showShareDialog = () => {
-    console.log("Shared title: " + title + " text: " + text);
     if (navigator.share) {
       navigator.share({
         title,

@@ -13,7 +13,6 @@ async function saveSubscription(subscription) {
 }
 
 async function sendNotification({ delay, ...options }, subscription) {
-    console.log("sendNotification delay:" + delay + " options: " + JSON.stringify(options));
     if (!keysInit) {
         const { push: { public, private, email } } = (await config.getConfig());
         webpush.setVapidDetails(
@@ -28,6 +27,7 @@ async function sendNotification({ delay, ...options }, subscription) {
             webpush.sendNotification(subscription, JSON.stringify(options));
         }
         else if (subscriptions.length) {
+            console.log("Sending to " + subscriptions.length + " subscribers");
             subscriptions.map(subscription => webpush.sendNotification(subscription, JSON.stringify(options)));
         }
         else {

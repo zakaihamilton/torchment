@@ -8,6 +8,7 @@ const Main = () => (
     <Head>
       <title>Torchment</title>
       <link rel="icon" href="/favicon.ico" />
+      <link rel="manifest" href="/manifest.json" />
     </Head>
 
     <ServiceWorker />

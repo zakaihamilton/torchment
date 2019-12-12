@@ -32,6 +32,12 @@ serviceWorker.showLocalNotification.subscribe({
     }
 });
 
+serviceWorker.showPushNotification.subscribe({
+    after: (result, message) => {
+        messages.push(message);
+    }
+});
+
 export default function Messages() {
     const classes = useStyles();
     const items = messages.list();

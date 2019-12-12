@@ -8,7 +8,7 @@ import { blue } from '@material-ui/core/colors';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { useAPI } from '../../utils/hooks';
 import config from '../../../mgr/core/config';
-import Tree from './ConfigCard/Tree';
+import Tree from './Tree';
 
 const useStyles = makeStyles(theme => ({
     card: {

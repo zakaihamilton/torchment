@@ -31,13 +31,30 @@ async function showPushNotification(options) {
         return false;
     }
     const subscription = await handle.pushManager.getSubscription();
-    await sendNotification(options, subscription);
+    if (subscription) {
+        await sendNotification(options, subscription);
+    }
+    else {
+        alert("Push Notifications are not supported");
+    }
     return true;
+}
+
+async function getSubscription() {
+    if (!handle || !handle.pushManager) {
+        return { error: "Push Manager Not supported" };
+    }
+    const subscription = await handle.pushManager.getSubscription();
+    if (!subscription) {
+        return { error: "No subscription" };
+    }
+    return subscription;
 }
 
 export default makeSubscribable({
     register,
     unregister,
     showLocalNotification,
-    showPushNotification
+    showPushNotification,
+    getSubscription
 });

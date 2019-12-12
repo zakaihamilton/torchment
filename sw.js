@@ -16,7 +16,7 @@ async function checkSubscription() {
             const config = JSON.parse((await (await fetch("/config/getConfig")).json()).value);
             const applicationServerKey = urlB64ToUint8Array(config.push.public);
             const options = { applicationServerKey, userVisibleOnly: true };
-            const subscription = await self.registration.pushManager.subscribe(options);
+            subscription = await self.registration.pushManager.subscribe(options);
             const response = await fetch('/push/saveSubscription', {
                 method: 'POST',
                 headers: {
@@ -27,8 +27,7 @@ async function checkSubscription() {
                     value: JSON.stringify(subscription)
                 }])
             });
-            const result = await response.json();
-            console.log("saveSubscription: " + result);
+            await response.json();
         }
     }
     catch (err) {

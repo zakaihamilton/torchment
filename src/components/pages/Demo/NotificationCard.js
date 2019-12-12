@@ -4,19 +4,22 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import { green } from '@material-ui/core/colors';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import serviceWorker from '../../utils/serviceWorker';
 import notification from '../../utils/notification';
+import { useAPI } from '../../utils/hooks';
+import Tree from './Tree';
 
 const useStyles = makeStyles(theme => ({
   card: {
     width: 345,
     height: 600,
     margin: "6px",
+    overflowY: "auto"
   },
   avatar: {
     backgroundColor: green[500]
@@ -44,6 +47,7 @@ export default function NotificationCard() {
   const [delay, setDelay] = useState('1000');
   const [title, setTitle] = useState('Notification');
   const [counter, setCounter] = useState(0);
+  const subscription = useAPI(serviceWorker.getSubscription) || {};
 
   const handleBody = event => {
     setBody(event.target.value);
@@ -107,7 +111,7 @@ export default function NotificationCard() {
           <div>
             <TextField
               multiline
-              rows="4"
+              rows="2"
               className={classes.textField}
               label="Body"
               margin="normal"
@@ -126,9 +130,8 @@ export default function NotificationCard() {
             Enable Notifications
           </Button>}
         </form>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This feature sends a notification to the device
-        </Typography>
+        <Typography>Subscription:</Typography>
+        <Tree items={subscription} />
       </CardContent>
     </Card>
   );

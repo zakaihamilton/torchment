@@ -69,10 +69,11 @@ export default function TreeWidget({ items }) {
 
     const parse = items => {
         const elements = [];
+        if (!items) {
+            items = [];
+        }
         if (Array.isArray(items)) {
-            return (<>
-                {items.map(item => parse(item))}
-            </>);
+            elements.push(...items.filter(Boolean).map(item => parse(item)));
         }
         else {
             const keys = Object.keys(items);
@@ -87,10 +88,13 @@ export default function TreeWidget({ items }) {
                 }
             }
         }
-        return elements;
+        return elements.filter(Boolean);
     };
 
-    items = parse(items);
+    if (items) {
+        items = JSON.parse(JSON.stringify(items));
+        items = parse(items);
+    }
 
     return (
         <TreeView

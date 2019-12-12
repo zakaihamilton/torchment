@@ -9,6 +9,9 @@ async function getConfig() {
     const path = './config/' + (json.profile || "default");
     const list = await fs.promises.readdir(path);
     for (const name of list) {
+        if (!name.endsWith(".json")) {
+            continue;
+        }
         const subFile = await fs.promises.readFile(path + "/" + name);
         try {
             json = _.merge(json, JSON.parse(subFile));

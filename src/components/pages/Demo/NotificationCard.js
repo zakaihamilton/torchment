@@ -11,7 +11,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import serviceWorker from '../../utils/serviceWorker';
 import notification from '../../utils/notification';
-import push from '../../../mgr/push/push';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -65,7 +64,7 @@ export default function NotificationCard() {
   };
 
   const sendPushNotification = () => {
-    push.sendNotification({ title, body, delay });
+    serviceWorker.showPushNotification({ title, body, delay });
   };
 
   const enableNotifications = () => {

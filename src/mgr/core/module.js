@@ -3,6 +3,7 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 let _modules = {};
+let _importMethod = null;
 
 function importValue(value) {
     const type = typeof value;
@@ -115,7 +116,22 @@ function handleModule(pathname, req, res) {
     return false;
 }
 
+function importModule(path) {
+    if (_importMethod) {
+        return _importMethod(path);
+    }
+    else {
+        return {};
+    }
+}
+
+function setImportMethod(method) {
+    _importMethod = method;
+}
+
 module.exports = makeSubscribable({
     makeModule,
-    handleModule
+    handleModule,
+    importModule,
+    setImportMethod
 });

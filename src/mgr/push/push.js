@@ -1,18 +1,21 @@
-const { makeModule } = require('../core/module');
+const { makeModule, importModule } = require('../core/module');
 const webpush = require('web-push');
 const config = require('../core/config');
-
-const subscriptions = [];
+const { objectId, getCollectionHandle } = require('../data/db');
 
 let keysInit = false;
 
 async function saveSubscription(subscription) {
-    console.log("subscription: " + JSON.stringify(subscription));
-    subscriptions.push(subscription);
-    return true;
+    const collectionHandle = await getCollectionHandle("devices", "subscriptions");
+    const _id = objectId().toString();
+    const data = { _id, ...subscription };
+    console.log("saving subscription: " + JSON.stringify(data));
+    await collectionHandle.insertOne(data);
+    return _id;
 }
 
 async function sendNotification({ delay, ...options }, subscription) {
+    const collectionHandle = await getCollectionHandle("devices", "subscriptions");
     if (!keysInit) {
         const { push: { public, private, email } } = (await config.getConfig());
         webpush.setVapidDetails(
@@ -26,12 +29,10 @@ async function sendNotification({ delay, ...options }, subscription) {
         if (subscription) {
             webpush.sendNotification(subscription, JSON.stringify(options));
         }
-        else if (subscriptions.length) {
-            console.log("Sending to " + subscriptions.length + " subscribers");
-            subscriptions.map(subscription => webpush.sendNotification(subscription, JSON.stringify(options)));
-        }
         else {
-            console.error("No subscriptions!");
+            collectionHandle.find({}).forEach(subscription => {
+                webpush.sendNotification(subscription, JSON.stringify(options));
+            });
         }
     }, parseInt(delay) || 0);
 };

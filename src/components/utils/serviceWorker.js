@@ -1,4 +1,5 @@
 import { makeSubscribable } from '../../mgr/core/subscribe';
+import { sendNotification } from '../../mgr/push/push';
 
 let handle = null;
 
@@ -17,12 +18,26 @@ async function register() {
     }
 }
 
-const showLocalNotification = ({ title, body, ...options }) => {
+function showLocalNotification({ title, body, ...options }) {
+    if (!handle) {
+        return false;
+    }
     handle.showNotification(title, { body, ...options });
+    return true;
+}
+
+async function showPushNotification(options) {
+    if (!handle || !handle.pushManager) {
+        return false;
+    }
+    const subscription = await handle.pushManager.getSubscription();
+    await sendNotification(options, subscription);
+    return true;
 }
 
 export default makeSubscribable({
     register,
     unregister,
-    showLocalNotification
+    showLocalNotification,
+    showPushNotification
 });

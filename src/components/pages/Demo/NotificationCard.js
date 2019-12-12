@@ -15,7 +15,7 @@ import notification from '../../utils/notification';
 const useStyles = makeStyles(theme => ({
   card: {
     width: 345,
-    height: 530,
+    height: 600,
     margin: "6px",
   },
   avatar: {

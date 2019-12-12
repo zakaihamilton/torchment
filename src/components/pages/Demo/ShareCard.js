@@ -14,7 +14,7 @@ import Link from '@material-ui/core/Link';
 const useStyles = makeStyles(theme => ({
   card: {
     width: 345,
-    height: 530,
+    height: 600,
     margin: "6px"
   },
   avatar: {

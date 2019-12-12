@@ -13,8 +13,8 @@ import Tree from './ConfigCard/Tree';
 const useStyles = makeStyles(theme => ({
     card: {
         width: 345,
-        height: 515,
-        margin:"6px",
+        height: 530,
+        margin: "6px",
         overflowY: "auto"
     },
     avatar: {

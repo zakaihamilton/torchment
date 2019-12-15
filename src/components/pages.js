@@ -22,28 +22,28 @@ export default [
         label: "Dashboard",
         component: <Dashboard />,
         icon: <DashboardIcon />,
-        location: ["NavBar"]
+        location: ["NavBar", "Menu"]
     },
     {
         id: "ads",
         label: "Ads",
         component: <Ads />,
         icon: <AdsIcon />,
-        location: ["NavBar"]
+        location: ["NavBar", "Menu"]
     },
     {
         id: "wallet",
         label: "Wallet",
         component: <Wallet />,
         icon: <WalletIcon />,
-        location: ["NavBar"]
+        location: ["NavBar", "Menu"]
     },
     {
         id: "myads",
         label: "My Ads",
         component: <MyAds />,
         icon: <MyAdsIcon />,
-        location: ["NavBar"]
+        location: ["NavBar", "Menu"]
     },
     {
         id: "demo",

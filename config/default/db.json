@@ -1,7 +1,0 @@
-{
-    "private": {
-        "db": {
-            "url": "mongodb+srv://zhamilto:osd30N7FLgKdwed3@torchment-5au2w.mongodb.net/test?retryWrites=true&w=majority"
-        }
-    }
-}

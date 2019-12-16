@@ -84,7 +84,6 @@ export default function ShareCard() {
         <form className={classes.form} noValidate autoComplete="off">
           <div>
             <TextField
-              id="standard-basic"
               className={classes.textField}
               label="Title"
               margin="normal"
@@ -94,7 +93,6 @@ export default function ShareCard() {
           </div>
           <div>
             <TextField
-              id="standard-basic"
               className={classes.textField}
               label="Url"
               margin="normal"
@@ -104,7 +102,6 @@ export default function ShareCard() {
           </div>
           <div>
             <TextField
-              id="standard-basic"
               multiline
               rows="4"
               className={classes.textField}

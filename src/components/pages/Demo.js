@@ -1,8 +1,9 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import ShareCard from './Demo/ShareCard';
 import NotificationCard from './Demo/NotificationCard';
 import ConfigCard from './Demo/ConfigCard';
-import { makeStyles } from '@material-ui/core/styles';
+import LoggerCard from "./Demo/LoggerCard";
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -18,6 +19,7 @@ export default function Demo() {
             <ShareCard />
             <NotificationCard />
             <ConfigCard />
+            <LoggerCard />
         </div>
     );
 }

@@ -67,20 +67,33 @@ const StyledTreeItem = withStyles(theme => ({
 
 export default function TreeWidget({ items }) {
 
-    const parse = items => {
+    const parse = (items, id) => {
         const elements = [];
         if (!items) {
             items = [];
         }
-        if (Array.isArray(items)) {
-            elements.push(...items.filter(Boolean).map(item => parse(item)));
+        if (typeof items === "string") {
+            elements.push((<StyledTreeItem key={items} nodeId={id} label={items}></StyledTreeItem>));
+        }
+        else if (Array.isArray(items)) {
+            elements.push(...items.filter(Boolean).map((item, index) => {
+                const nodeId = id + "/" + index;
+                if (typeof item === "string") {
+                    const label = (<div><b>{index}</b> {item}</div>);
+                    elements.push((<StyledTreeItem key={nodeId} nodeId={nodeId} label={label}></StyledTreeItem>));
+                }
+                else {
+                    return (<StyledTreeItem key={index} nodeId={nodeId} label={index}>{parse(item, nodeId)}</StyledTreeItem>);
+                }
+            }));
         }
         else {
             const keys = Object.keys(items);
             for (const key of keys) {
                 const value = items[key];
                 if (typeof value === "object") {
-                    elements.push((<StyledTreeItem key={key} nodeId={key} label={key}>{parse(value)}</StyledTreeItem>));
+                    const nodeId = id + "/" + key;
+                    elements.push((<StyledTreeItem key={key} nodeId={nodeId} label={key}>{parse(value, nodeId)}</StyledTreeItem>));
                 }
                 else {
                     const label = (<div><b>{key}</b> {value}</div>);
@@ -93,7 +106,7 @@ export default function TreeWidget({ items }) {
 
     if (items) {
         items = JSON.parse(JSON.stringify(items));
-        items = parse(items);
+        items = parse(items, "");
     }
 
     return (

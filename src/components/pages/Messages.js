@@ -32,8 +32,9 @@ serviceWorker.showLocalNotification.subscribe({
     }
 });
 
-serviceWorker.showPushNotification.subscribe({
-    after: (result, message) => {
+serviceWorker.registerEventListener(event => {
+    const { type, ...message } = event.data;
+    if (type === "push") {
         messages.push(message);
     }
 });

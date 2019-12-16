@@ -9,7 +9,7 @@ async function getClusterHandle() {
     if (_clusterHandle) {
         return _clusterHandle;
     }
-    const { db: { url } } = (await config.getConfig());
+    const { url } = await config.getParam("db");
     _clusterHandle = await mongodb.MongoClient.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
     return _clusterHandle;
 }

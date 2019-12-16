@@ -2,6 +2,7 @@ const { makeModule, importModule } = require('../core/module');
 const webpush = require('web-push');
 const config = require('../core/config');
 const { objectId, getCollectionHandle } = require('../data/db');
+const logger = require("../core/logger");
 
 let keysInit = false;
 
@@ -9,15 +10,16 @@ async function saveSubscription(subscription) {
     const collectionHandle = await getCollectionHandle("devices", "subscriptions");
     const _id = objectId().toString();
     const data = { _id, ...subscription };
-    console.log("saving subscription: " + JSON.stringify(data));
+    logger.log("saving subscription: ", data);
     await collectionHandle.insertOne(data);
     return _id;
 }
 
 async function sendNotification({ delay, ...options }, subscription) {
+    logger.log("Sending notification:", options, "delay:", delay, "subscription:", subscription);
     const collectionHandle = await getCollectionHandle("devices", "subscriptions");
     if (!keysInit) {
-        const { push: { public, private, email } } = (await config.getConfig());
+        const { public, private, email } = (await config.getParam("push"));
         webpush.setVapidDetails(
             email,
             public,

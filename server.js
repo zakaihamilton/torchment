@@ -3,6 +3,7 @@ const { join } = require("path");
 const { parse } = require("url");
 const next = require("next");
 const { handleModule } = require("./src/mgr/server");
+const logger = require("./src/mgr/core/logger");
 
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = app.getRequestHandler();
@@ -21,6 +22,6 @@ app.prepare().then(() => {
             handle(req, res, parsedUrl);
         }
     }).listen(port, () => {
-        console.log(`> Ready on http://localhost:${port}`);
+        logger.log(`Ready on http://localhost:${port}`);
     });
 });

@@ -1,10 +1,26 @@
 import { makeSubscribable } from '../../mgr/core/subscribe';
 import { sendNotification } from '../../mgr/push/push';
+import notification from './notification';
 
 let handle = null;
 
+notification.askForPermission.subscribe({
+    after: (promise) => {
+        promise.then(() => {
+            if (handle && handle.active) {
+                handle.active.postMessage({
+                    type: "update"
+                });
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+        });
+    }
+});
+
 async function unregister() {
-    if ('serviceWorker' in navigator) {
+    if (typeof navigator !== "undefined" && 'serviceWorker' in navigator) {
         const registration = await navigator.serviceWorker.ready;
         registration.unregister();
         handle = null;
@@ -12,7 +28,7 @@ async function unregister() {
 }
 
 async function register() {
-    if ('serviceWorker' in navigator) {
+    if (typeof navigator !== "undefined" && 'serviceWorker' in navigator) {
         handle = await navigator.serviceWorker.register('/service-worker.js');
         return handle;
     }
@@ -51,10 +67,17 @@ async function getSubscription() {
     return subscription;
 }
 
+function registerEventListener(callback) {
+    if (typeof navigator !== "undefined" && 'serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', callback);
+    }
+}
+
 export default makeSubscribable({
     register,
     unregister,
     showLocalNotification,
     showPushNotification,
-    getSubscription
+    getSubscription,
+    registerEventListener
 });

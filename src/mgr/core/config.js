@@ -27,6 +27,16 @@ async function getConfig() {
     return json;
 }
 
+async function getParam(...tokens) {
+    const config = await getConfig();
+    return tokens.reduce((parent, name) => {
+        if (parent) {
+            return parent[name];
+        }
+    }, config);
+}
+
 module.exports = makeModule("config", {
-    getConfig
+    getConfig,
+    getParam
 });

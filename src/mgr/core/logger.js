@@ -1,19 +1,16 @@
 const { makeModule } = require('./module');
-const { objectId, getCollectionHandle } = require('../data/db');
 const config = require("./config");
+const dbList = require('../data/list')({ dbName: "core", collectionName: "logger" });
 
 async function logs() {
     const identity = await config.getParam("logger", "identity");
-    const collectionHandle = await getCollectionHandle("core", "logger");
-    return await collectionHandle.find({ identity }).toArray();
+    return await dbList.find({ identity }).toArray();
 }
 
 async function push(type, ...params) {
     const identity = await config.getParam("logger", "identity");
-    const collectionHandle = await getCollectionHandle("core", "logger");
-    const _id = objectId().toString();
-    const data = { _id, identity, type, params, date: new Date(), now: Date.now() };
-    await collectionHandle.insertOne(data);
+    const data = { identity, type, params, date: new Date(), now: Date.now() };
+    await dbList.push(data);
 }
 
 function log(...params) {

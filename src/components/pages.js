@@ -15,8 +15,9 @@ import DemoIcon from '@material-ui/icons/EmojiObjects';
 import MessagesIcon from '@material-ui/icons/Mail';
 
 import messages from './utils/messages';
+import { useAPI } from './utils/hooks';
 
-export default [
+const pages = [
     {
         id: "dashboard",
         label: "Dashboard",
@@ -58,15 +59,11 @@ export default [
         component: <Messages />,
         icon: <MessagesIcon />,
         location: ["AppBar"],
-        badgeContent: messages.count,
-        hook: hook => {
-            const callbacks = {
-                after: hook
-            };
-            messages.update.subscribe(callbacks);
-            return () => {
-                messages.update.unsubscribe(callbacks);
-            };
+        handler: (page) => {
+            page.badgeContent = parseInt(useAPI(messages.count) || 0);
+            return page;
         }
     }
 ];
+
+export default pages;

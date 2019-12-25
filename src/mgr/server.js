@@ -6,6 +6,7 @@ setImportMethod(require);
 require('./core/config');
 require('./push/push');
 require('./core/logger');
+require('./push/messages');
 
 module.exports = {
     handleModule

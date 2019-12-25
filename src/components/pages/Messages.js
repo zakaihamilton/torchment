@@ -7,6 +7,7 @@ import MessageCard from './Messages/MessageCard';
 import Permission from './Messages/Permission';
 import push from '../utils/notification';
 import messages from '../utils/messages';
+import { useAPI } from '../utils/hooks';
 import serviceWorker from '../utils/serviceWorker';
 
 const useStyles = makeStyles(theme => ({
@@ -41,18 +42,7 @@ serviceWorker.registerEventListener(event => {
 
 export default function Messages() {
     const classes = useStyles();
-    const items = messages.list();
-    const [counter, setCounter] = useState(0);
-
-    useEffect(() => {
-        const callbacks = {
-            after: () => setCounter(counter => counter + 1)
-        };
-        messages.update.subscribe(callbacks);
-        return () => {
-            messages.update.unsubscribe(callbacks);
-        }
-    }, []);
+    const items = useAPI(messages.list) || [];
 
     function renderRow({ index, style }) {
         const classes = useStyles();

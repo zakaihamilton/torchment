@@ -22,6 +22,9 @@ async function getDatabaseHandle(dbName) {
 async function getCollectionHandle(dbName, collectionName) {
     const dbHandle = await getDatabaseHandle(dbName);
     const collectionHandle = await dbHandle.collection(collectionName);
+    if (!collectionHandle) {
+        throw "No collection found for " + dbName + "/" + collectionName;
+    }
     return collectionHandle;
 }
 

@@ -1,23 +1,18 @@
-const { makeModule, importModule } = require('../core/module');
+const { makeModule } = require('../core/module');
 const webpush = require('web-push');
 const config = require('../core/config');
-const { objectId, getCollectionHandle } = require('../data/db');
 const logger = require("../core/logger");
+const designateList = require('../data/list');
+const dbList = designateList({ dbName: "devices", collectionName: "subscriptions" });
 
 let keysInit = false;
 
-async function saveSubscription(subscription) {
-    const collectionHandle = await getCollectionHandle("devices", "subscriptions");
-    const _id = objectId().toString();
-    const data = { _id, ...subscription };
-    logger.log("saving subscription: ", data);
-    await collectionHandle.insertOne(data);
-    return _id;
+function saveSubscription(subscription) {
+    return dbList.push(subscription);
 }
 
 async function sendNotification({ delay, ...options }, subscription) {
     logger.log("Sending notification:", options, "delay:", delay, "subscription:", subscription);
-    const collectionHandle = await getCollectionHandle("devices", "subscriptions");
     if (!keysInit) {
         const { public, private, email } = (await config.getParam("push"));
         webpush.setVapidDetails(
@@ -32,7 +27,7 @@ async function sendNotification({ delay, ...options }, subscription) {
             webpush.sendNotification(subscription, JSON.stringify(options));
         }
         else {
-            collectionHandle.find({}).forEach(subscription => {
+            dbList.find({}).forEach(subscription => {
                 webpush.sendNotification(subscription, JSON.stringify(options));
             });
         }

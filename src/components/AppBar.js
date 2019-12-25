@@ -83,6 +83,16 @@ export default function MainAppBar({ toggleMenu, title, pages, setPage }) {
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const [counter, setCounter] = useState(0);
 
+    pages = pages.map(page => {
+        if (!page.location || !page.location.includes("AppBar")) {
+            return null;
+        }
+        if (page.handler) {
+            page = page.handler(page);
+        }
+        return page;
+    }).filter(Boolean);
+
     function handleProfileMenuOpen(event) {
         setAnchorEl(event.currentTarget);
     }
@@ -144,12 +154,9 @@ export default function MainAppBar({ toggleMenu, title, pages, setPage }) {
             onClose={handleMobileMenuClose}
         >
             {pages.map(page => {
-                if (!page.location || !page.location.includes("AppBar")) {
-                    return null;
-                }
                 return (<MenuItem key={page.id} onClick={() => { handleMobileMenuClose(); setPage(page.id); }}>
                     <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
+                        <Badge badgeContent={page.badgeContent} color="secondary">
                             {page.icon}
                         </Badge>
                     </IconButton>
@@ -203,11 +210,8 @@ export default function MainAppBar({ toggleMenu, title, pages, setPage }) {
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         {pages.map(page => {
-                            if (!page.location || !page.location.includes("AppBar")) {
-                                return null;
-                            }
                             return (<IconButton key={page.id} color="inherit" onClick={() => setPage(page.id)}>
-                                <Badge badgeContent={page.badgeContent()} color="secondary">
+                                <Badge badgeContent={page.badgeContent} color="secondary">
                                     {page.icon}
                                 </Badge>
                             </IconButton>

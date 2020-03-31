@@ -17,7 +17,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "lodash": "^4.17.15",
     "mongodb": "^3.4.0",
-    "next": "9.1.4",
+    "next": "9.3.3",
     "next-offline": "^4.0.6",
     "next-workbox-webpack-plugin": "^2.1.1",
     "openode": "^2.0.14",
